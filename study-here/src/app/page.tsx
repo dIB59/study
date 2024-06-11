@@ -7,10 +7,9 @@ export default function Home() {
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Welcome to Our Coding Club! We teach coding to kids aged 9 to 11 in a fun and engaging way.
         </p>
-        
       </div>
 
-      <div className="relative z-[-1]  flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
+      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[&apos;&apos;] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[&apos;&apos;] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
         <Image
           className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark"
           src="/coding2.svg"
@@ -63,7 +62,7 @@ export default function Home() {
             </span>
           </h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            From coding games to creative projects, there's something for every child to enjoy!
+            From coding games to creative projects, there&apos;s something for every child to enjoy!
           </p>
         </a>
 
@@ -146,7 +145,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div>
               <h3 className="text-xl font-semibold mb-2">Great Question of Life</h3>
-              <p>A cosmic quest where you're asked the ultimate question—input 42, forty-two, or forty two, and get a mystical "Yes"; say anything else, and receive a cosmic "No."</p>
+              <p>A cosmic quest where you&apos;re asked the ultimate question—input 42, forty-two, or forty two, and get a mystical &quot;Yes&quot;; say anything else, and receive a cosmic &quot;No.&quot;</p>
             </div>
             <Image
               src="/space.svg"
