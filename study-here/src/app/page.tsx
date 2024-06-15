@@ -155,6 +155,7 @@ export default function Home() {
               priority
             />
           </div>
+          
           <div className="flex flex-col md:flex-row items-center gap-8">
             <Image
               src="/coaster.svg"
