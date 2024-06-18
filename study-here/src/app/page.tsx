@@ -1,35 +1,30 @@
 import Image from "next/image";
 
-
 export default function Home() {
   function CardLink({ href, title, description }: { href: string, title: string, description: string }) {
     return (
-        <a
-          href={href}
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 block"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-              {title}{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  -&gt;
-              </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-              {description}
-          </p>
+      <a
+        href={href}
+        className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 block"
+      >
+        <h2 className="mb-3 text-2xl font-semibold">
+          {title}{" "}
+          <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+            -&gt;
+          </span>
+        </h2>
+        <p className="m-0 max-w-[30ch] text-sm opacity-50">
+          {description}
+        </p>
       </a>
     );
   }
-  
+
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen">
-      <div >
-        <p className="px-4 w-full text-center border-b
-         border-gray-300 bg-gradient-to-b
-         from-zinc-200 pb-6 pt-8 backdrop-blur-2xl
-         dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border
-         lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Welcome to Our Coding Classess! We teach coding to kids aged 9 to 15 in a fun and engaging way.
+    <main className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-r from-black-900 to-black-900 text-white">
+      <div>
+        <p className="px-4 w-full text-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+          Welcome to Our Coding Classes! We teach coding to kids aged 9 to 15 in a fun and engaging way.
         </p>
       </div>
 
@@ -79,15 +74,15 @@ export default function Home() {
           Our comprehensive coding curriculum covers a wide range of topics, ensuring your child develops a strong foundation in computer science.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-gray-800">
             <h3 className="text-xl font-semibold mb-2">Fundamentals of Coding</h3>
             <p>Introduction to coding principles and basic concepts.</p>
           </div>
-          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-gray-800">
             <h3 className="text-xl font-semibold mb-2">Problem Solving</h3>
             <p>Develop problem-solving skills through coding challenges and projects.</p>
           </div>
-          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-gray-800">
             <h3 className="text-xl font-semibold mb-2">Advanced Topics</h3>
             <p>Introduction to more complex programming concepts and techniques.</p>
           </div>
@@ -99,7 +94,7 @@ export default function Home() {
         <div className="space-y-12">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <Image
-              src="/dragon.svg"
+              src="/draco.svg"
               alt="Dragon Game"
               width={180}
               height={180}
@@ -111,7 +106,6 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row items-center gap-8">
-            <div>
             <Image
               src="/space.svg"
               alt="Deep Thought"
@@ -119,10 +113,10 @@ export default function Home() {
               height={180}
               priority
             />
-            </div>
+            <div>
               <h3 className="text-xl font-semibold mb-2">Great Question of Life</h3>
               <p>A cosmic quest where you&apos;re asked the ultimate question—input 42, forty-two, or forty two, and get a mystical &quot;Yes&quot;; say anything else, and receive a cosmic &quot;No.&quot;</p>
-            
+            </div>
           </div>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <Image
@@ -149,11 +143,10 @@ export default function Home() {
           <p className="text-lg font-semibold mb-2">Contact Information</p>
           <p className="text-sm">For more information and to enroll, please contact us at:</p>
           <div className="mt-2">
-              <p className="text-sm">Email: <a href="mailto:learncodecraftacademy@gmail.com" className="text-blue-300 hover:text-blue-200 hover:underline">LearnCodecraftAcademy@gmail.com</a></p>
+            <p className="text-sm">Email: <a href="mailto:learncodecraftacademy@gmail.com" className="text-blue-300 hover:text-blue-200 hover:underline">LearnCodecraftAcademy@gmail.com</a></p>
           </div>
         </div>
       </section>
     </main>
   );
 }
-
