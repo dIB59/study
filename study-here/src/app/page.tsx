@@ -99,7 +99,7 @@ export default function Home() {
         <div className="space-y-12">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <Image
-              src="/dragon.svg"
+              src="/draco.svg"
               alt="Dragon Game"
               width={180}
               height={180}
