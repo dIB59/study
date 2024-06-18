@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'com.stripe:stripe-java:25.12.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -27,6 +28,7 @@ dependencies {
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:postgresql'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testAndDevelopmentOnly 'org.springframework.boot:spring-boot-devtools:3.3.0'
 }
 
 tasks.named('test') {
