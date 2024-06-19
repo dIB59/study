@@ -1,4 +1,4 @@
-package dev.byteschool.byteschoolapp.stripe.exception;
+package dev.byteschool.byteschoolapp.stripe;
 
 
 import lombok.Data;
