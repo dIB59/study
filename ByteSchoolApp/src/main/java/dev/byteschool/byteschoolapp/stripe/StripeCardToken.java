@@ -4,9 +4,9 @@ import com.stripe.model.Token;
 
 import java.util.Optional;
 
-public record StripeToken(
+public record StripeCardToken(
         StripeTokenDto tokenDto,
-        Optional<Token> token,
+        Token token,
         boolean success
 ) {
 }
