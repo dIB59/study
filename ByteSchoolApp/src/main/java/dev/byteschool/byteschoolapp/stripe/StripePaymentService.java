@@ -4,7 +4,15 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
+import com.stripe.model.PaymentIntent;
 import com.stripe.model.Token;
+import com.stripe.param.ChargeCreateParams;
+import com.stripe.param.CustomerCreateParams;
+import com.stripe.param.PaymentIntentCreateParams;
+import com.stripe.param.TokenCreateParams;
+import dev.byteschool.byteschoolapp.PaymentService;
+import dev.byteschool.byteschoolapp.stripe.exception.StripeChargeNotFoundException;
+import dev.byteschool.byteschoolapp.stripe.exception.StripeCustomerNotFoundException;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,54 +22,80 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class StripeService {
+public class StripePaymentService implements PaymentService {
 
     private final String stripeApiKey;
 
-    public StripeService(@Value("${api.stripe.key}") String stripeApiKey) {
+    public StripePaymentService(@Value("${api.stripe.secret}") String stripeApiKey) {
         this.stripeApiKey = stripeApiKey;
+        init();
     }
 
     @PostConstruct
-    void init(){
+    void init() {
         Stripe.apiKey = stripeApiKey;
     }
 
-
-    public Optional<String> createCharge(String email, String token, int amount) {
-        Optional<String> id;
-            Map<String, Object> chargeParams = new HashMap<>();
-            chargeParams.put("amount", amount);
-            chargeParams.put("currency", "usd");
-            chargeParams.put("description", "Charge for " + email);
-            chargeParams.put("source", token); // ^ obtained with Stripe.js
-
+    @Override
+    public String createPaymentIntent(int amount, String currency) {
+        PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+                .setAmount((long) amount)
+                .setCurrency(currency)
+                .build();
         try {
-            Charge charge = Charge.create(chargeParams);
-            id = Optional.ofNullable(charge.getId());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            return PaymentIntent.create(params).getId();
+        } catch (StripeException e) {
+            throw new RuntimeException(e);
         }
-        return id;
     }
 
-    public Optional<String> createCustomer(String email, String token) {
-        Optional<String> id;
+    @Override
+    public String createCharge(String email, String token, Long amount, String description) {
+        ChargeCreateParams chargeParams = ChargeCreateParams.builder()
+                .setAmount(amount)
+                .setReceiptEmail(email)
+                .setCurrency("USD")
+                .setDescription(description)
+                .setSource(token)
+                .build();
         try {
-            Map<String, Object> customerParams = new HashMap<>();
-
-            customerParams.put("description", "Customer for " + email);
-            customerParams.put("email", email);
-
-            customerParams.put("source", token);
-            Customer customer = Customer.create(customerParams);
-            id = Optional.ofNullable(customer.getId());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            return Charge.create(chargeParams).getId();
+        } catch (StripeException e) {
+            throw new StripeChargeNotFoundException(e.getMessage());
         }
-        return id;
     }
 
-    
+    @Override
+    public String createCustomer(String email, String token) {
+        CustomerCreateParams customerParams = CustomerCreateParams.builder()
+            .setDescription("Customer for " + email)
+            .setEmail(email)
+            .setSource(token)
+            .build();
+        try {
+            return Customer.create(customerParams).getId();
+        } catch (StripeException e) {
+            throw new StripeCustomerNotFoundException(e.getMessage());
+        }
+    }
+
+    @Override
+    public StripeCardToken createToken(StripeTokenDto model) {
+
+            Map<String, Object> card = new HashMap<>();
+            card.put("number", model.cardNumber());
+            card.put("exp_month", Integer.parseInt(model.expMonth()));
+            card.put("exp_year", Integer.parseInt(model.expYear()));
+            card.put("cvc", model.cvc());
+            Map<String, Object> params = new HashMap<>();
+            params.put("card", card);
+        try {
+            final Token token = Token.create(params);
+            final boolean success = token != null && token.getId() != null;
+            return new StripeCardToken(model, token, success);
+        } catch (StripeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 
 }
