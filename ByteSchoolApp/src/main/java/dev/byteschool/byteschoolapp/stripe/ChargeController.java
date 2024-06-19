@@ -1,39 +1,40 @@
-package dev.byteschool.byteschoolapp;
+package dev.byteschool.byteschoolapp.stripe;
 
-import com.stripe.exception.StripeException;
-import com.stripe.model.Charge;
-import lombok.Getter;
+import dev.byteschool.byteschoolapp.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
+@RequestMapping("v1/stripe")
 public class ChargeController {
 
-    private final StripeService paymentsService;
+    private final PaymentService paymentsService;
 
     @Autowired
-    public ChargeController(StripeService paymentsService){
+    public ChargeController(StripePaymentService paymentsService){
         this.paymentsService = paymentsService;
     }
 
 
-    @PostMapping("/charge")
-    public String charge(ChargeRequest chargeRequest, Model model)
-            throws StripeException {
-        Charge charge = paymentsService.charge(chargeRequest);
-        model.addAttribute("id", charge.getId());
-        model.addAttribute("status", charge.getStatus());
-        model.addAttribute("chargeId", charge.getId());
-        model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        return "result";
+    @PostMapping("card/token")
+    @ResponseStatus(CREATED)
+    public String createCardToken(@RequestBody StripeTokenDto model){
+        return paymentsService.createToken(model).token().toString();
     }
 
-    @ExceptionHandler(StripeException.class)
-    public String handleError(Model model, StripeException ex) {
-        model.addAttribute("error", ex.getMessage());
-        return "result";
+    @PostMapping("charge")
+    @ResponseStatus(CREATED)
+    public String charge(
+            @RequestBody ChargeRequest chargeRequest
+    ){
+        return paymentsService.createCharge(
+            chargeRequest.email(),
+            chargeRequest.token(),
+            chargeRequest.amount(),
+            chargeRequest.description()
+        );
     }
+
 }
