@@ -1,11 +1,11 @@
 package dev.byteschool.byteschoolapp.stripe.exception;
 
-public class StripeProcessingException extends RuntimeException {
-    public StripeProcessingException(String message) {
+public class StripeCustomerNotFoundException extends RuntimeException {
+    public StripeCustomerNotFoundException(String message) {
         super(message);
     }
 
-    public StripeProcessingException(String message, Throwable cause) {
+    public StripeCustomerNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }
