@@ -10,11 +10,17 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 class TestcontainersConfiguration {
 
+	private PostgreSQLContainer<?> postgresContainer;
+
 	@Bean
 	@RestartScope
 	@ServiceConnection
-	PostgreSQLContainer<?> postgresContainer() {
-		return new PostgreSQLContainer<>(DockerImageName.parse("postgres:1"));
+	public PostgreSQLContainer<?> postgresContainer() {
+		if (postgresContainer == null) {
+			postgresContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16.3"))
+					.withReuse(true);
+			postgresContainer.start();
+		}
+		return postgresContainer;
 	}
-
 }
