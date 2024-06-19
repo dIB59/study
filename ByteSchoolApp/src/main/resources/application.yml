@@ -1,0 +1,8 @@
+spring:
+  config:
+    import: optional:secrets.yml
+
+api:
+  stripe:
+    key: "KEY"
+    secret: "SECRET"
