@@ -1,12 +1,7 @@
 spring:
-  config:
-    import: optional:secrets.yml
-
-
-  jpa:
-    hibernate:
-      ddl-auto: update
+  profiles:
+    active: stage
+api:
   stripe:
     key: ${STRIPE_TEST_PUBLISHABLE_API_KEY}
     secret: ${STRIPE_TEST_SECRET_API_KEY}
-
