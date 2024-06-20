@@ -1,8 +1,9 @@
 spring:
   config:
     import: optional:secrets.yml
-
+  profiles:
+    active: stage
 api:
   stripe:
-    key: "KEY"
-    secret: "SECRET"
+    key: ${STRIPE_TEST_PUBLISHABLE_API_KEY}
+    secret: ${STRIPE_TEST_SECRET_API_KEY}

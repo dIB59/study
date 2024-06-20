@@ -1,5 +1,13 @@
 package dev.byteschool.byteschoolapp;
 
 public enum Currency {
-    EUR, USD, SEK;
+
+    EUR("EUR"),
+    GBP("GBP"),
+    USD("USD"),
+    SEK("SEK");
+
+    Currency(String name) {
+    }
+
 }
