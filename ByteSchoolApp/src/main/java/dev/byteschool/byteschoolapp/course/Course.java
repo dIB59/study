@@ -7,7 +7,8 @@ import lombok.Getter;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 import static java.time.DayOfWeek.MONDAY;

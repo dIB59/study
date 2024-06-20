@@ -1,12 +1,10 @@
 package dev.byteschool.byteschoolapp.course;
 
 
-import com.stripe.param.FileListParams;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/api/courses")
