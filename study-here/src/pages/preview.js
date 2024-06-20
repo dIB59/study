@@ -4,9 +4,15 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
+const packages = [
+  { id: 'price_1PTjg4Ipp2Q29FE5fwt1TVZF', name: 'Python for Kids',price: '  $3.0' },
+  { id: 'price_1PTjg4Ipp2Q29FE5fwt1TVF', name: 'Python for Teens' ,price: '  $5.0'},
+];
+
 export default function PreviewPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [selectedPackage, setSelectedPackage] = useState(packages[0]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +22,12 @@ export default function PreviewPage() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name, email }),
+      body: JSON.stringify({
+        name,
+        email,
+        priceId: selectedPackage.id,
+        plan: selectedPackage.name,
+      }),
     });
 
     const session = await response.json();
@@ -48,6 +59,18 @@ export default function PreviewPage() {
             required
           />
         </div>
+        <div className="packages">
+          {packages.map((pkg) => (
+            <div
+              key={pkg.id}
+              className={`package ${selectedPackage.id === pkg.id ? 'selected' : ''}`}
+              onClick={() => setSelectedPackage(pkg)}
+            >
+              {pkg.name}
+              {pkg.price}
+            </div>
+          ))}
+        </div>
         <button type="submit">Checkout</button>
       </form>
       <style jsx>{`
@@ -75,6 +98,24 @@ export default function PreviewPage() {
           padding: 0.5em;
           border: 1px solid #ccc;
           border-radius: 4px;
+        }
+        .packages {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 1em;
+        }
+        .package {
+          flex: 1;
+          padding: 1em;
+          margin: 0 0.5em;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          text-align: center;
+          cursor: pointer;
+        }
+        .package.selected {
+          border-color: #556cd6;
+          background: #eef;
         }
         button {
           display: block;
