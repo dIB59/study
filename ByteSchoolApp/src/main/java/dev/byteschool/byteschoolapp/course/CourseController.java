@@ -1,6 +1,8 @@
 package dev.byteschool.byteschoolapp.course;
 
 
+import com.stripe.param.FileListParams;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,14 +20,17 @@ public class CourseController {
         this.studentRepository = studentRepository;
     }
 
-    @PostMapping("students")
-    public Optional<Student> addStudent(
-            @RequestParam int courseId,
+    @PostMapping("{courseId}/students")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student addStudent(
+            @PathVariable int courseId,
             @RequestParam int studentId
     ) {
-        return courseRepository.findById(courseId)
-                .filter(Course::canAddStudent)
-                .flatMap(c -> c.addStudent(studentRepository.findById(studentId).orElseThrow()));
+        var course =  courseRepository.findById(courseId).orElseThrow();
+        var student = studentRepository.findById(studentId).orElseThrow();
+        var added = course.addStudent(student);
+        courseRepository.save(course);
+        return added;
     }
 
     @PostMapping

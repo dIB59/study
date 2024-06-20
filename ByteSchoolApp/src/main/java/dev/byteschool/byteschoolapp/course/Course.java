@@ -17,7 +17,7 @@ import static java.time.DayOfWeek.MONDAY;
         property = "id")
 @Getter
 @Entity
-public class Course implements Students {
+public class Course implements HasStudents {
 
     @Id
     @GeneratedValue(strategy = SEQUENCE)
@@ -53,12 +53,12 @@ public class Course implements Students {
         return currentStudents.size() < maxCapacity;
     }
 
-    public Optional<Student> addStudent(Student student) {
+    public Student addStudent(Student student) {
         if (canAddStudent()) {
             currentStudents.add(student);
-            return Optional.of(student);
+            return student;
         }
-        return Optional.empty();
+        throw new IllegalArgumentException("Can't add student to course. Max size reached");
     }
 
     private LocalDate getNextMonday() {
