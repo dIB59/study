@@ -25,7 +25,7 @@ public class CourseController {
             @RequestParam int studentId
     ) {
         var course =  courseRepository.findById(courseId).orElseThrow();
-        var student = studentRepository.findById(studentId).orElseThrow();
+        var student = studentRepository.findById(studentId).orElseThrow().addCourse(course);
         var added = course.addStudent(student);
         courseRepository.save(course);
         return added;

@@ -1,6 +1,7 @@
 package dev.byteschool.byteschoolapp.course;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Course implements HasStudents {
     private Slot slot;
     private int maxCapacity;
     @ManyToMany
+    @JsonIgnoreProperties(value = "courses")
     private Set<Student> currentStudents;
 
     public Course(String name, Module type, int maxCapacity, Slot slot) {
