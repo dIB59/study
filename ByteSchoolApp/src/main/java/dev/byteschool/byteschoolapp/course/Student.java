@@ -1,11 +1,12 @@
 package dev.byteschool.byteschoolapp.course;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -27,8 +28,8 @@ public class Student {
     private String email;
 
     @ManyToMany
-    @JsonBackReference
-    private Set<Course> course;
+    @JsonIgnoreProperties(value = "currentStudents")
+    private final Set<Course> courses = new HashSet<>();
 
     public Student(String name, String email) {
         this.name = name;
@@ -36,4 +37,9 @@ public class Student {
     }
 
     public Student() {}
+
+    public Student addCourse(Course course){
+        this.courses.add(course);
+        return this;
+    }
 }
