@@ -1,7 +1,13 @@
-// src/pages/api/checkout_sessions.js
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import { NextApiRequest, NextApiResponse } from 'next';
+import Stripe from 'stripe';
 
-export default async function handler(req, res) {
+const stripe: Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+
+export default async function handler(
+  req: NextApiRequest, 
+  res: NextApiResponse
+) {
   if (req.method === 'POST') {
     const { name, email, priceId, plan } = req.body;
     try {
@@ -9,7 +15,7 @@ export default async function handler(req, res) {
         payment_method_types: ['card'],
         line_items: [
           {
-            price: priceId, // Use the price ID passed from the form
+            price: priceId,
             quantity: 1,
           },
         ],
@@ -19,7 +25,7 @@ export default async function handler(req, res) {
         customer_email: email,
       });
       res.status(200).json({ id: session.id });
-    } catch (err) {
+    } catch (err: any) {
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {

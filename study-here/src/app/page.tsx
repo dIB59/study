@@ -6,7 +6,6 @@ export default function Home() {
     return (
       <a
         href={href}
-        className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 block"
       >
         <h2 className="mb-3 text-2xl font-semibold">
           {title}{" "}
@@ -22,7 +21,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-r from-black-900 to-black-900 text-white">
+    <main className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-r from-black-900 to-black-90">
       <div>
         <p className="px-4 w-full text-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Welcome to Our Coding Classes! We teach coding to kids aged 9 to 15 in a fun and engaging way.
@@ -140,7 +139,7 @@ export default function Home() {
         <p className="mb-6">
           Give your child a head start in technology with our coding classes! Enroll now and watch as they develop skills that will serve them for a lifetime. Our classes are designed to be accessible and enjoyable for kids aged 9 to 15, making it easy for them to start their coding journey.
         </p>
-        <div className="contact-info mb-6 bg-gray-800 text-white p-4 rounded-lg shadow-md">
+        <div className="contact-info mb-6 bg-gray-800 p-4 rounded-lg shadow-md">
           <p className="text-lg font-semibold mb-2">Contact Information</p>
           <p className="text-sm">For more information and to enroll, please contact us at:</p>
           <div className="mt-2">
@@ -148,9 +147,8 @@ export default function Home() {
           </div>
           <Link href="/preview">
         
-          <button>Go to Payment Page</button>
-        
-      </Link>
+    <button>Go to Payment Page</button>
+          </Link>
       
         </div>
       </section>

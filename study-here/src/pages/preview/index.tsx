@@ -1,18 +1,17 @@
-// src/pages/preview.js
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? 'somehitng');
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "some");
 
 const packages = [
   {
-    id: 'price_1PTjg4Ipp2Q29FE5fwt1TVZF',
+    id: 'price_1PUOCQIpp2Q29FE5DxS2ovDa',
     name: 'Python for Kids',
     description: ['Ages 9 to 12', 'Great for beginners', 'No prior knowledge required'],
     price: '$3.0'
   },
   {
-    id: 'price_1PTjg4Ipp2Q29FE5fwt1TVF',
+    id: 'price_1PUOCQIpp2Q29FE5DxS2ovDa',
     name: 'Python for Teens',
     description: ['Ages 13 to 18', 'Intermediate level', 'Basic programming knowledge recommended'],
     price: '$5.0',
@@ -25,7 +24,7 @@ export default function PreviewPage() {
   const [email, setEmail] = useState('');
   const [selectedPackage, setSelectedPackage] = useState(packages[0]);
 
-  const handleSubmit = async (event: { preventDefault: () => void; }) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     const response = await fetch('/api/checkout_sessions', {
@@ -40,12 +39,9 @@ export default function PreviewPage() {
         plan: selectedPackage.name,
       }),
     });
-
     const session = await response.json();
     const stripe = await stripePromise;
-    if (stripe) {
-      stripe.redirectToCheckout({ sessionId: session.id });
-    }
+    stripe?.redirectToCheckout({ sessionId: session.id });
   };
 
   return (
