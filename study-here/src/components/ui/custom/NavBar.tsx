@@ -10,7 +10,7 @@ import {
 
 const Navbar: React.FC = () => {
   return (
-    <NavigationMenu className="max-y-max ">
+    <NavigationMenu className=" ">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
