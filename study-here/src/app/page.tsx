@@ -22,11 +22,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-r from-black-900 to-black-90">
-      <div>
-        <p className="px-4 w-full text-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Welcome to Our Coding Classes! We teach coding to kids aged 9 to 15 in a fun and engaging way.
-        </p>
-      </div>
+
 
       <div className="relative z-[-1] flex place-items-center p-6 lg:p-24 before:absolute before:h-[200px] before:w-[200px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[120px] after:w-[120px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[300px] sm:after:w-[180px]">
         <Image
@@ -38,7 +34,11 @@ export default function Home() {
           priority
         />
       </div>
-
+      <div>
+        <p className="px-4 w-full text-center border-b border-gray-300 from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+          Welcome to Our Coding Classes! We teach coding to kids aged 9 to 15 in a fun and engaging way.
+        </p>
+      </div>
       <section className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left p-6 lg:p-24 gap-4">
         <CardLink href="#coding-adventure" title="Join our Coding Adventure!" description="Let your child explore the exciting world of coding with our interactive classes!" />
         <CardLink href="#curriculum" title="Curriculum" description="Our comprehensive coding curriculum covers a wide range of topics, ensuring your child develops a strong foundation in computer science." />
@@ -74,15 +74,15 @@ export default function Home() {
           Our comprehensive coding curriculum covers a wide range of topics, ensuring your child develops a strong foundation in computer science.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-gray-800">
+          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-primary-foreground">
             <h3 className="text-xl font-semibold mb-2">Fundamentals of Coding</h3>
             <p>Introduction to coding principles and basic concepts.</p>
           </div>
-          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-gray-800">
+          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-primary-foreground">
             <h3 className="text-xl font-semibold mb-2">Problem Solving</h3>
             <p>Develop problem-solving skills through coding challenges and projects.</p>
           </div>
-          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-gray-800">
+          <div className="p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow bg-primary-foreground">
             <h3 className="text-xl font-semibold mb-2">Advanced Topics</h3>
             <p>Introduction to more complex programming concepts and techniques.</p>
           </div>
