@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense  } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loadStripe } from '@stripe/stripe-js';
 
-export default function CheckoutPage() {
+function CheckoutPage() {
     const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -99,3 +99,11 @@ export default function CheckoutPage() {
         </main>
     );
 }
+
+const CheckoutPageWrapper = () => (
+    <Suspense fallback={<div> loading </div>}>
+        <CheckoutPage />
+    </Suspense>
+);
+
+export default CheckoutPageWrapper;
