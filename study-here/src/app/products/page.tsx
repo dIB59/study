@@ -61,9 +61,11 @@ export default async function Page() {
     return (
         <div className="flex flex-col items-center gap-4 p-4">
             <h1 className="text-2xl font-semibold mb-4">Please choose a package</h1>
-            <div className="flex gap-4 overflow-x-auto">
+            <div className="flex flex-wrap justify-center gap-4 overflow-x-auto">
                 {productsProps.map((product) => (
-                    <ProductCard key={product.productId} {...product} />
+                    <div key={product.productId} className="flex-shrink-0 w-full sm:w-auto sm:max-w-xs">
+                        <ProductCard {...product} />
+                    </div>
                 ))}
             </div>
         </div>
