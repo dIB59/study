@@ -60,7 +60,6 @@ export default async function Page() {
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
-            <h1 className="text-2xl font-semibold mb-4">Please choose a package</h1>
             <div className="flex flex-wrap justify-center gap-4">
                 {productsProps.map((product) => (
                     <div key={product.productId} >
