@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/app/providers/ThemeProvider";
 import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
+import Navbar from "@/components/ui/custom/NavBar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({ children}: Readonly<{ children: React.React
           disableTransitionOnChange
           >
           <ReactQueryProvider>
+            <Navbar></Navbar>
             {children}
           </ReactQueryProvider>
         </ThemeProvider>
