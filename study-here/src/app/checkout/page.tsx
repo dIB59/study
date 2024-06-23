@@ -13,13 +13,13 @@ export default function CheckoutPage() {
     const router = useRouter();
     const product = {
         priceId: searchParams?.get('priceId'),
-        id: searchParams?.get('productId')
+        productId: searchParams?.get('productId')
     };
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     
-    if (!product.priceId || !product.id) {
+    if (!product.priceId || !product.productId) {
         return <Button onClick={() => router.push('/products')}>Please choose a product</Button>;
     }
 
@@ -37,7 +37,7 @@ export default function CheckoutPage() {
                     name,
                     email,
                     priceId: product.priceId,
-                    productId: product.id,
+                    productId: product.productId,
                 }),
             });
 
