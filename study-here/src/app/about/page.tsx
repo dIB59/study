@@ -26,6 +26,7 @@ export default function AboutPage() {
           name="Unas Aamir"
           title="Full Stack Developer"
           description="Unas Aamir is an experienced computer science student with a background in software engineering. Having completed his Bachelor's in Computer Science at the Institute of Business Administration (IBA). He has gained practical experience through internships at BCI News Media and Alkhidmat Foundation Pakistan, where he worked on projects ranging from website accessibility testing to content development and cataloging."
+          linkedin="https://www.linkedin.com/in/unas-aamir-627682215/"
         />
       </div>
     </main>
