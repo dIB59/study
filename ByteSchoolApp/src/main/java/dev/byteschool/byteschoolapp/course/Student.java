@@ -9,18 +9,18 @@ import lombok.Getter;
 import java.util.HashSet;
 import java.util.Set;
 
-import static jakarta.persistence.GenerationType.SEQUENCE;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 @Entity
 @Getter
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = SEQUENCE)
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -28,7 +28,7 @@ public class Student {
     private String email;
 
     @ManyToMany
-    @JsonIgnoreProperties(value = "currentStudents")
+    @JsonIgnoreProperties(value = "students")
     private final Set<Course> courses = new HashSet<>();
 
     public Student(String name, String email) {

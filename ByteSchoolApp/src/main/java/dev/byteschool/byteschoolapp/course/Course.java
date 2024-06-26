@@ -1,76 +1,90 @@
 package dev.byteschool.byteschoolapp.course;
 
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjusters;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import static jakarta.persistence.GenerationType.SEQUENCE;
-import static java.time.DayOfWeek.MONDAY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 @Getter
 @Entity
+@NoArgsConstructor
 public class Course implements HasStudents {
 
     @Id
-    @GeneratedValue(strategy = SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = IDENTITY)
+    private int id;
+    @Getter
     private LocalDate startDate;
     private LocalDate endDate;
     private String name;
+    @Enumerated(EnumType.STRING)
     private Module type;
     private Slot slot;
     private int maxCapacity;
     @ManyToMany
     @JsonIgnoreProperties(value = "courses")
-    private Set<Student> currentStudents;
+    private Set<Student> students;
 
     public Course(String name, Module type, int maxCapacity, Slot slot) {
         this.name = name;
         this.slot = slot;
         this.type = type;
         this.maxCapacity = maxCapacity;
-        this.currentStudents = new HashSet<>();
-        this.startDate = getNextMonday();
-        this.endDate = startDate.plusWeeks(2);
-    }
-
-    public Course() {
-        this.maxCapacity = 4;
-        this.currentStudents = new HashSet<>();
-        this.startDate = getNextMonday();
+        this.students = new HashSet<>();
+        this.startDate = getStartDateForNewCourse(LocalDate.now());
         this.endDate = startDate.plusWeeks(2);
     }
 
     public boolean canAddStudent() {
-        return currentStudents.size() < maxCapacity;
+        return students.size() < maxCapacity;
     }
 
     public Student addStudent(Student student) {
-        if (canAddStudent()) {
-            currentStudents.add(student);
-            return student;
+        if (!canAddStudent()) {
+            throw new IllegalArgumentException("Can't add student to course. Max size reached");
         }
-        throw new IllegalArgumentException("Can't add student to course. Max size reached");
+        students.add(student);
+        return student;
     }
 
-    private LocalDate getNextMonday() {
-        LocalDate currentDate = LocalDate.now();
-        DayOfWeek currentDayOfWeek = currentDate.getDayOfWeek();
-        int daysToAdd = MONDAY.getValue() - currentDayOfWeek.getValue();
-        if (daysToAdd <= 0) {
-            daysToAdd += 7;
-        }
-        return currentDate.plusDays(daysToAdd);
+    @Override
+    public List<Student> getStudents() {
+        return students.stream().toList();
+    }
+
+    public LocalDate getStartDateForNewCourse(LocalDate today) {
+        var startDate = today.plusDays(1).with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+        int weekOfYear = today.plusDays(1).get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+        return (weekOfYear % 2 == 0) ? startDate.plusWeeks(1) : startDate;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "startDate = " + startDate + ", " +
+                "endDate = " + endDate + ", " +
+                "name = " + name + ", " +
+                "type = " + type + ", " +
+                "slot = " + slot + ", " +
+                "maxCapacity = " + maxCapacity + ")";
     }
 }
