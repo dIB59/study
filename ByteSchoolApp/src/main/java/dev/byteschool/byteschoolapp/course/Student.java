@@ -17,6 +17,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 //        property = "id")
 @Entity
 @Getter
+@Table(name = "student")
 public class Student {
 
     @Id
@@ -28,6 +29,11 @@ public class Student {
     private String email;
 
     @ManyToMany
+    @JoinTable(
+            name = "student_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "courses_id")
+    )
     @JsonIgnoreProperties(value = "students")
     private final Set<Course> courses = new HashSet<>();
 

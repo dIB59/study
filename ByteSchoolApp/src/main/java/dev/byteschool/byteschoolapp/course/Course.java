@@ -26,6 +26,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @Entity
 @NoArgsConstructor
+@Table(name = "course")
 public class Course implements HasStudents {
 
     @Id
@@ -39,7 +40,7 @@ public class Course implements HasStudents {
     private Module type;
     private Slot slot;
     private int maxCapacity;
-    @ManyToMany
+    @ManyToMany(mappedBy = "courses")
     @JsonIgnoreProperties(value = "courses")
     private Set<Student> students;
 
